@@ -1,0 +1,26 @@
+name: EZRanksLite
+main: me.clip.ezrankslite.EZRanksLite
+version: 2.0.3
+author: extended_clip
+softdepend: [Vault]
+description: Flexible lightweight economy based ranking system for your server permissions groups
+commands:
+   ezrankslite:
+     description: admin command
+     aliases: [ezadmin]
+   rankup:
+     description: rankup command
+     aliases: [ezru, ru, ezr]
+   ranks:
+     description: ranks command
+     aliases: [rankslist]
+permissions:
+    ezranks.admin:
+        description: Allows access to /ezadmin
+        default: op
+    ezranks.rankup:
+        description: Allows access to /rankup
+        default: true
+    ezranks.listranks:
+        description: Allows access to /ranks
+        default: true
