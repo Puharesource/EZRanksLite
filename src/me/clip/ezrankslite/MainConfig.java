@@ -39,6 +39,8 @@ public class MainConfig {
 	
 	private static int rankupCooldownTime;
 	
+	private static boolean checkPrimaryGroup;
+	
 	public void loadDefaultConfig() {
 		
 		FileConfiguration c = plugin.getConfig();
@@ -50,7 +52,7 @@ public class MainConfig {
 		c.addDefault("check_updates", true);
 		
 		c.addDefault("debug", false);
-		
+		c.addDefault("check_primary_group_for_available_rankup", false);
 		c.addDefault("confirm_to_rankup.enabled", true);
 		c.addDefault("confirm_to_rankup.time", 10);
 		c.addDefault("rankup_cooldown.enabled", true);
@@ -79,6 +81,9 @@ public class MainConfig {
 	}
 	
 	public void loadOptions() {
+		
+		checkPrimaryGroup = plugin.getConfig().getBoolean("check_primary_group_for_available_rankup");
+		
 		thousandsFormat = plugin.getConfig().getString("money.thousands_format");
 		millionsFormat = plugin.getConfig().getString("money.millions_format");
 		billionsFormat = plugin.getConfig().getString("money.billions_format");
@@ -94,6 +99,10 @@ public class MainConfig {
 		
 		rankupCooldownEnabled = plugin.getConfig().getBoolean("rankup_cooldown.enabled");
 		rankupCooldownTime = plugin.getConfig().getInt("rankup_cooldown.time") * 1000;
+	}
+	
+	public static boolean checkPrimaryGroupForRankups() {
+		return checkPrimaryGroup;
 	}
 	
 	public static String getThousandsFormat() {

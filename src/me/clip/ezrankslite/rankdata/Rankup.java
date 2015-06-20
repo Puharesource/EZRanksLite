@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import javax.annotation.Nonnull;
 
 import me.clip.ezrankslite.EZRanksLite;
+import me.clip.ezrankslite.MainConfig;
 import me.clip.ezrankslite.rankupactions.RankupAction;
 
 import org.bukkit.entity.Player;
@@ -199,9 +200,10 @@ public class Rankup {
 		}
 		
 		Iterator<Rankup> i = rankups.values().iterator();
+		
 		while (i.hasNext()) {
 			Rankup r = i.next();
-			if (r.getRank().equals(rank)) {
+			if (r.getRank().equalsIgnoreCase(rank)) {
 				return r;
 			}
 		}
@@ -218,15 +220,34 @@ public class Rankup {
 			return null;
 		}
 		
-		for (int i = rankups.size();i>=1;i--) {
+		if (MainConfig.checkPrimaryGroupForRankups()) {
 			
-			Rankup r = rankups.get(i);
+			String primary = EZRanksLite.get().getPerms().getPrimaryGroup(p);
 			
-			if (p.hasPermission("ezranks.rank."+r.getRank())) {
-				return r;
+			if (primary == null) {
+				return null;
 			}
+			
+			for (int i = rankups.size();i>=1;i--) {
+				
+				Rankup r = rankups.get(i);
+				
+				if (r.getRank().equalsIgnoreCase(primary)) {
+					return r;
+				}
+			}	
+		} else {
+			
+			for (int i = rankups.size();i>=1;i--) {
+				
+				Rankup r = rankups.get(i);
+				
+				if (p.hasPermission("ezranks.rank."+r.getRank())) {
+					return r;
+				}
+			}			
 		}
-	
+		
 		return null;
 	}
 	
@@ -247,7 +268,24 @@ public class Rankup {
 	}
 	
 	public static boolean isLastRank(Player p) {
-		return lastRank != null && p.hasPermission("ezranks.lastrank");
+		
+		if (lastRank == null || lastRank.getRank() == null) {
+			return false;
+		}
+		
+		if (MainConfig.checkPrimaryGroupForRankups()) {
+			
+			String primary = EZRanksLite.get().getPerms().getPrimaryGroup(p);
+			
+			if (primary == null) {
+				return false;
+			}
+			
+			return primary.equalsIgnoreCase(lastRank.getRank());
+			
+		} else {
+			return p.hasPermission("ezranks.lastrank");
+		}
 	}
 	
 	public static boolean isLastRank(String rank) {

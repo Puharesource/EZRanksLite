@@ -173,7 +173,7 @@ public class PlaceholderReplacer {
 					break;
 				}
 				
-				replacement = Rankup.getRankup(r.getRankup()) != null && Rankup.getRankup(r.getRankup()).getPrefix() != null ? Rankup.getRankup(r.getRankup()).getPrefix() : "";
+				replacement = Rankup.getRankup(r.getRankup()).getPrefix() != null ? Rankup.getRankup(r.getRankup()).getPrefix() : "";
 				break;
 			}
 			
