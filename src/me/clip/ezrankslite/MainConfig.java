@@ -108,15 +108,19 @@ public class MainConfig {
 	public static String getThousandsFormat() {
 		return thousandsFormat != null ? thousandsFormat : "k";
 	}
+	
 	public static String getMillionsFormat() {
 		return millionsFormat != null ? millionsFormat : "M";
 	}
+	
 	public static String getBillionsFormat() {
 		return billionsFormat != null ? billionsFormat : "B";
 	}
+	
 	public static String getTrillionsFormat() {
 		return trillionsFormat != null ? trillionsFormat : "T";
 	}
+	
 	public static String getQuadrillionsFormat() {
 		return quadrillionsFormat != null ? quadrillionsFormat : "Q";
 	}
@@ -124,18 +128,23 @@ public class MainConfig {
 	public static String getRanksPreviousFormat() {
 		return ranksPrevious != null ? ranksPrevious : "&8%rank%: Completed";
 	}
+	
 	public static String getRanksCurrentFormat() {
 		return ranksCurrent != null ? ranksCurrent : "&7%rank%: &fCurrent rank";
 	}
+	
 	public static String getRanksNextFormat() {
 		return ranksNext != null ? ranksNext : "&f%rank%: &a$&f%cost%";
 	}
+	
 	public static String getRanksLastFormat() {
 		return ranksLastRank != null ? ranksLastRank : "&f%lastrank%: &cLast rank!";
 	}
+	
 	public static List<String> getRanksHeader() {
 		return ranksHeader;
 	}
+	
 	public static List<String> getRanksFooter() {
 		return ranksFooter;
 	}

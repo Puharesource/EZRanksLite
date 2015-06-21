@@ -18,6 +18,11 @@ public class EffectsHandler {
 		
 	}
 	
+	/**
+	 * play an effect at a specific players location
+	 * @param p Player to play the effect for
+	 * @param effectName Name of the effect to play
+	 */
 	public void playEffect(Player p, String effectName) {
 		
 		if (p == null) {
@@ -124,7 +129,7 @@ public class EffectsHandler {
 		}
 	}
 				
-	public static void fireworks(Location loc) {
+	private void fireworks(Location loc) {
 		Firework fw = (Firework) loc.getWorld().spawnEntity(loc, EntityType.FIREWORK);
 		FireworkMeta fwm = fw.getFireworkMeta();
 		Random r = new Random();

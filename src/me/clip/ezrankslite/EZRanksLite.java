@@ -173,6 +173,9 @@ public class EZRanksLite extends JavaPlugin {
 		instance = null;
 	}
 	
+	/**
+	 * reload all settings
+	 */
 	public void reloadEverything() {
 		
 		reloadConfig();
@@ -198,6 +201,12 @@ public class EZRanksLite extends JavaPlugin {
 		debug(false, "EZRanksLite has been reloaded");
 	}
 	
+	/**
+	 * Send a debug message to console if debug mode is enabled
+	 * or if the message is severe
+	 * @param severe if the message should be forced even if debug is disabled
+	 * @param msg message to send
+	 */
 	public void debug(boolean severe, String msg) {
 		if (severe) {
 			getLogger().severe(msg);
@@ -208,6 +217,10 @@ public class EZRanksLite extends JavaPlugin {
 		}
 	}
 	
+	/**
+	 * sets up the version specific nms class for the actionbar and json packet sending
+	 * @return true if nms class was assigned, false otherwise
+	 */
 	private boolean setupNMS() {
 		
 		String version;
@@ -251,6 +264,9 @@ public class EZRanksLite extends JavaPlugin {
 		}
 	}
 	
+	/**
+	 * load the default messages from the Lang enum to the messages.yml
+	 */
 	private void loadMessages() {
 		
 		Lang.setFile(messages.getConfig());
@@ -264,42 +280,82 @@ public class EZRanksLite extends JavaPlugin {
 		messages.saveConfig();
 	}
 	
+	/**
+	 * get the static instance of EZRanksLite
+	 * @return EZRanksLite instance
+	 */
 	public static EZRanksLite get() {
 		return instance;
 	}
 	
+	/**
+	 * get the NMSHandler that was assigned on startup
+	 * @return null if server version is not compatible, NMSHandler otherwise
+	 */
 	public NMSHandler getNMS() {
 		return nms;
 	}
 	
+	/**
+	 * get the main config class for EZRanksLite
+	 * @return MainConfig instance loaded
+	 */
 	public MainConfig getMainConfig() {
 		return mainConfig;
 	}
 	
+	/**
+	 * get the rankups config class for EZRanksLite
+	 * @return RankupsConfig instance loaded
+	 */
 	public RankupsConfig getRankupsConfig() {
 		return rankupsConfig;
 	}
 	
+	/**
+	 * get the effects handler to send effects to players
+	 * @return null if the NMSHandler was not assigned, EffectsHandler instance otherwise
+	 */
 	public EffectsHandler getEffects() {
 		return effects;
 	}
 	
+	/**
+	 * get the action handler which handles performing rankup actions
+	 * @return RankupActionHandler instance
+	 */
 	public RankupActionHandler getActionHandler() {
 		return rankupActionHandler;
 	}
 	
+	/**
+	 * get the placeholder replacer class which contains methods to parse placeholders for any String
+	 * @return PlaceholderReplacer instance 
+	 */
 	public PlaceholderReplacer getPlaceholderReplacer() {
 		return placeholderReplacer;
 	}
 	
+	/**
+	 * get the Vault economy class containing methods related to economy
+	 * @return VaultEco class
+	 */
 	public VaultEco getEconomy() {
 		return eco;
 	}
 	
+	/**
+	 * get the Vault permissions class containing methods related to permissions
+	 * @return VaultPerms class
+	 */
 	public VaultPerms getPerms() {
 		return perms;
 	}
 	
+	/**
+	 * get the Vault chat class containing methods related to chat
+	 * @return VaultChat class
+	 */
 	public VaultChat getChat() {
 		return chat;
 	}

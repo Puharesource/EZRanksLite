@@ -19,6 +19,11 @@ public class RankupActionHandler {
 		plugin = instance;
 	}
 
+	/**
+	 * execute all rankup actions associated with a specific rankup for a specific player
+	 * @param p Player to execute the rankup actions for
+	 * @param r Rankup associated with the player. This Rankup should be the rankup players have access to at their current rank
+	 */
 	public void executeRankupActions(Player p, Rankup r) {
 		
 		List<RankupAction> actions = r.getRankupActions();

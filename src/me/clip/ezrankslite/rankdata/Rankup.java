@@ -49,6 +49,10 @@ public class Rankup {
 		this.rank = rank;
 	}
 	
+	/**
+	 * check if this rankup is a valid rankup with all fields set to the correct values
+	 * @return Set<RankupCheckResponse> of responses, this set will return RankupCheckResponse.VALID if the rankup is valid
+	 */
 	public Set<RankupCheckResponse> validate() {
 		
 		Set<RankupCheckResponse> response = EnumSet.noneOf(RankupCheckResponse.class);
@@ -102,58 +106,114 @@ public class Rankup {
 		return response;
 	}
 	
+	/**
+	 * get the order of this rankup
+	 * @return int order
+	 */
 	public int getOrder() {
 		return order;
 	}
 	
+	/**
+	 * set the order of this rankup
+	 * @param order int new order
+	 */
 	public void setOrder(int order) {
 		this.order = order;
 	}
 	
+	/**
+	 * get the rank players need to be to access this rankup
+	 * @return Rank name associated with this rankup
+	 */
 	public String getRank() {
 		return rank;
 	}
 	
+	/**
+	 * set the rank players need to be to have access to this rankup
+	 * @param rank new rank name associated with this rankup
+	 */
 	public void setRank(String rank) {
 		this.rank = rank;
 	}
 	
+	/**
+	 * get the name of the rank players with this rankup will go to when they /rankup
+	 * @return name of the rank players will be when they /rankup
+	 */
 	public String getRankup() {
 		return rankup;
 	}
 	
+	/**
+	 * set the name of the rank players with this rankup will go to when they /rankup
+	 * @param rankup name of the rank players will rankup to
+	 */
 	public void setRankup(String rankup) {
 		this.rankup = rankup;
 	}
 	
+	/**
+	 * get the raw double amount that this rankup will cost
+	 * @return Double amount this rankup cost 
+	 */
 	public double getCost() {
 		return Double.parseDouble(cost);
 	}
 	
+	/**
+	 * get the String amount associated with this rankup
+	 * @return cost amount as a String
+	 */
 	public String getCostString() {
 		return cost;
 	}
 	
+	/**
+	 * set the cost amount this rankup will be when players rankup
+	 * @param cost Cost as a String, this String should parse to a double
+	 */
 	public void setCost(String cost) {
 		this.cost = cost;
 	}
 	
+	/**
+	 * get a list of RankupActions that should be performed when players rankup from this rankup
+	 * @return List<RankupAction> of actions to perform
+	 */
 	public List<RankupAction> getRankupActions() {
 		return rankupActions;
 	}
 	
+	/**
+	 * set a list of RankupActions that should be performed when players rankup from this rankup
+	 * @param rankupActions List<RankupAction> of actions to perform
+	 */
 	public void setRankupActions(List<RankupAction> rankupActions) {
 		this.rankupActions = rankupActions;
 	}
 	
+	/**
+	 * get the prefix String associated with this rankup
+	 * @return String prefix associated with this rankup
+	 */
 	public String getPrefix() {
 		return prefix;
 	}
 
+	/**
+	 * set the prefix String associated with this rankup
+	 * @param prefix new String prefix this rankup should be
+	 */
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
 	}
 	
+	/**
+	 * load this rankup in the rankups Map if it is a valid rankup
+	 * @return true if the rankup was valid and added, false if the rankup was invalid
+	 */
 	public boolean addRankup() {
 
 		Set<RankupCheckResponse> validate = validate();
@@ -181,6 +241,10 @@ public class Rankup {
 		return false;
 	}
 	
+	/**
+	 * remove this rankup from the loaded rankups map
+	 * @return true if the rankup was removed, false if it was not loaded
+	 */
 	public boolean removeRankup() {
 		if (rankups == null || rankups.isEmpty()) {
 			return false;
@@ -192,7 +256,11 @@ public class Rankup {
 		return false;
 	}
 	
-	
+	/**
+	 * get the rankup associated with a specific rank
+	 * @param rank Rank name players need to be to have access to this rankup
+	 * @return Rankup object associated with the provided rank name, null if there was no Rankup object loaded with the name provided
+	 */
 	public static Rankup getRankup(String rank) {
 		
 		if (rankups == null || rankups.isEmpty()) {
@@ -210,6 +278,12 @@ public class Rankup {
 		return null;
 	}
 	
+	/**
+	 * get the rankup associated with a specific player
+	 * @param p Player to get the Rankup object for
+	 * @return Rankup object player currently has access to. This Rankup object holds information specific to the players current rank. 
+	 * Returns null if player is the last rank or no rankup is available
+	 */
 	public static Rankup getRankup(Player p) {
 		
 		if (rankups == null || rankups.isEmpty()) {
@@ -251,22 +325,42 @@ public class Rankup {
 		return null;
 	}
 	
+	/**
+	 * get the amount of rankups loaded
+	 * @return amount of rankup objects loaded into the rankups map
+	 */
 	public static int getLoadedRankupAmount() {
 		return rankups != null ? rankups.size() : 0;
 	}
 	
+	/**
+	 * unload all rankups
+	 */
 	public static void unloadAll() {
 		rankups = null;
 	}
 
+	/**
+	 * get the last rank object that was loaded
+	 * @return LastRank object
+	 */
 	public static LastRank getLastRank() {
 		return lastRank;
 	}
 
+	/**
+	 * set the last rank object
+	 * @param lastRank LastRank object that should be loaded
+	 */
 	public static void setLastRank(LastRank lastRank) {
 		Rankup.lastRank = lastRank;
 	}
 	
+	/**
+	 * check if a player is the last rank
+	 * @param p Player to check
+	 * @return true if player is the last rank, false otherwise
+	 */
 	public static boolean isLastRank(Player p) {
 		
 		if (lastRank == null || lastRank.getRank() == null) {
@@ -288,19 +382,36 @@ public class Rankup {
 		}
 	}
 	
+	/**
+	 * check if a rank name is the last rank
+	 * @param rank Rank name to check
+	 * @return true if the rank provided is the last rank, false otherwise
+	 */
 	public static boolean isLastRank(String rank) {
 		return lastRank != null && lastRank.getRank() != null && lastRank.getRank().equalsIgnoreCase(rank);
 	}
 
+	/**
+	 * get the requirement message sent to players if they do not have enough money to rankup
+	 * @return List<String> requirement message sent to players if they do not have enough money to rankup
+	 */
 	public static List<String> getRequirementMessage() {
 		return requirementMessage;
 	}
 
+	/**
+	 * set the requirement message sent to players if they do not have enough money to rankup
+	 * @param requirementMessage new requirement message to send
+	 */
 	public static void setRequirementMessage(List<String> requirementMessage) {
 		Rankup.requirementMessage = requirementMessage;
 	}
 	
+	/**
+	 * get a copy of the map containing all loaded rankups
+	 * @return TreeMap<Integer, Rankup> rankups copy
+	 */
 	public static TreeMap<Integer, Rankup> getAllRankups() {
-		return rankups;
+		return rankups != null ? new TreeMap<Integer, Rankup>(rankups) : null;
 	}
 }

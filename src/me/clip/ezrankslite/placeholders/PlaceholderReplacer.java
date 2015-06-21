@@ -21,6 +21,13 @@ public class PlaceholderReplacer {
 	
 	private final static Pattern PLACEHOLDER_PATTERN = Pattern.compile("[%]([a-zA-Z0-9_.-]+)[%]");	
 
+	/**
+	 * set any placeholders the String provided contains to the actual placeholder values
+	 * @param p Player to set the placeholders for
+	 * @param r Rankup object related to the player
+	 * @param s String to apply placeholders to
+	 * @return String provided with all placeholders parsed to the correct values
+	 */
 	public String setPlaceholders(Player p, Rankup r, String s) {
 		
 		Matcher m = PLACEHOLDER_PATTERN.matcher(s);
