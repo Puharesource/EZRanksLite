@@ -1,6 +1,6 @@
 name: EZRanksLite
 main: me.clip.ezrankslite.EZRanksLite
-version: 2.0.4
+version: 2.0.5
 author: extended_clip
 softdepend: [Vault]
 description: Flexible lightweight economy based ranking system for your server permissions groups

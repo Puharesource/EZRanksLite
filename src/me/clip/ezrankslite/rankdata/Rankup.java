@@ -304,7 +304,15 @@ public class Rankup {
 			
 			for (int i = rankups.size();i>=1;i--) {
 				
+				if (!rankups.containsKey(i)) {
+					continue;
+				}
+				
 				Rankup r = rankups.get(i);
+				
+				if (r == null) {
+					continue;
+				}
 				
 				if (r.getRank().equalsIgnoreCase(primary)) {
 					return r;
@@ -314,7 +322,15 @@ public class Rankup {
 			
 			for (int i = rankups.size();i>=1;i--) {
 				
+				if (!rankups.containsKey(i)) {
+					continue;
+				}
+				
 				Rankup r = rankups.get(i);
+				
+				if (r == null) {
+					continue;
+				}
 				
 				if (p.hasPermission("ezranks.rank."+r.getRank())) {
 					return r;

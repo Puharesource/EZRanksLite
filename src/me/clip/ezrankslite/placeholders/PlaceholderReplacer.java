@@ -39,7 +39,7 @@ public class PlaceholderReplacer {
 			String replacement = "";
 			
 			switch (placeholder) {
-			
+
 			case "player":
 				replacement = p.getName();
 				break;
@@ -52,122 +52,141 @@ public class PlaceholderReplacer {
 			case "rank":
 			case "rankfrom":
 			case "currentrank":
-				replacement = r != null && r.getRank() != null ? r.getRank() : Rankup.isLastRank(p) && Rankup.getLastRank() != null && Rankup.getLastRank().getRank() != null ? Rankup.getLastRank().getRank() : plugin.getPerms().getPrimaryGroup(p) != null ? plugin.getPerms().getPrimaryGroup(p) : "unknown"; 
+				replacement = r != null && r.getRank() != null ? r.getRank()
+						: Rankup.isLastRank(p) && Rankup.getLastRank() != null
+								&& Rankup.getLastRank().getRank() != null ? Rankup
+								.getLastRank().getRank() : plugin.getPerms()
+								.getPrimaryGroup(p) != null ? plugin.getPerms()
+								.getPrimaryGroup(p) : "unknown";
 				break;
 			case "nextrank":
 			case "rankto":
 			case "rankup":
-				replacement = r != null && r.getRankup() != null ? r.getRankup() : "none";
+				replacement = r != null && r.getRankup() != null ? r
+						.getRankup() : "none";
 				break;
 			case "cost":
-				
+
 				double cost = 0.0;
-				
+
 				if (r != null) {
-					
+
 					cost = r.getCost();
-					
+
 					cost = CostHandler.getMultiplier(p, cost);
 
 					cost = CostHandler.getDiscount(p, cost);
 				}
-				
+
 				long send = (long) cost;
-				
+
 				replacement = String.valueOf(send);
 				break;
 			case "cost_formatted":
-				
+
 				double c = 0.0;
-				
+
 				if (r != null) {
-					
+
 					c = r.getCost();
-					
+
 					c = CostHandler.getMultiplier(p, c);
 
 					c = CostHandler.getDiscount(p, c);
 				}
-				
+
 				replacement = EcoUtil.fixMoney(c);
 				break;
 			case "difference":
-				
+
 				double diff = 0.0;
-				
+
 				if (r != null) {
-					
+
 					diff = r.getCost();
-					
+
 					diff = CostHandler.getMultiplier(p, diff);
 
 					diff = CostHandler.getDiscount(p, diff);
 				}
-				
-				replacement = String.valueOf(EcoUtil.getDifference(plugin.getEconomy().getBalance(p), diff));
+
+				replacement = String.valueOf(EcoUtil.getDifference(plugin
+						.getEconomy().getBalance(p), diff));
 				break;
 			case "difference_formatted":
-				
+
 				double difff = 0.0;
-				
+
 				if (r != null) {
-					
+
 					difff = r.getCost();
-					
+
 					difff = CostHandler.getMultiplier(p, difff);
 
 					difff = CostHandler.getDiscount(p, difff);
 				}
-				
-				replacement = EcoUtil.fixMoney(EcoUtil.getDifference(plugin.getEconomy().getBalance(p), difff));
+
+				replacement = EcoUtil.fixMoney(EcoUtil.getDifference(plugin
+						.getEconomy().getBalance(p), difff));
 				break;
 			case "progress":
-				
+
 				double pro = 0.0;
-				
+
 				if (r != null) {
-					
+
 					pro = r.getCost();
-					
+
 					pro = CostHandler.getMultiplier(p, pro);
 
 					pro = CostHandler.getDiscount(p, pro);
 				}
-				
-				replacement = EcoUtil.getProgress(plugin.getEconomy().getBalance(p), pro);
+
+				replacement = EcoUtil.getProgress(plugin.getEconomy()
+						.getBalance(p), pro);
 				break;
 			case "progressexact":
-				
+
 				double prog = 0.0;
-				
+
 				if (r != null) {
-					
+
 					prog = r.getCost();
-					
+
 					prog = CostHandler.getMultiplier(p, prog);
 
 					prog = CostHandler.getDiscount(p, prog);
 				}
-				
-				replacement = EcoUtil.getProgressExact(plugin.getEconomy().getBalance(p), prog);
+
+				replacement = EcoUtil.getProgressExact(plugin.getEconomy()
+						.getBalance(p), prog);
 				break;
 			case "balance":
 				replacement = String.valueOf(plugin.getEconomy().getBalance(p));
 				break;
 			case "balance_formatted":
-				replacement = EcoUtil.fixMoney(plugin.getEconomy().getBalance(p));
+				replacement = EcoUtil.fixMoney(plugin.getEconomy()
+						.getBalance(p));
 				break;
 			case "rankprefix":
 			case "rank_prefix":
-				replacement = r != null && r.getPrefix() != null ? r.getPrefix() : Rankup.isLastRank(p) && Rankup.getLastRank() != null && Rankup.getLastRank().getPrefix() != null ? Rankup.getLastRank().getPrefix() : ""; 
+				replacement = r != null && r.getPrefix() != null ? r
+						.getPrefix() : Rankup.isLastRank(p)
+						&& Rankup.getLastRank() != null
+						&& Rankup.getLastRank().getPrefix() != null ? Rankup
+						.getLastRank().getPrefix() : "";
 				break;
 			case "lastrank":
 			case "last_rank":
-				replacement = Rankup.getLastRank() != null && Rankup.getLastRank().getRank() != null ? Rankup.getLastRank().getRank() : "";
+				replacement = Rankup.getLastRank() != null
+						&& Rankup.getLastRank().getRank() != null ? Rankup
+						.getLastRank().getRank() : "";
 				break;
 			case "lastrank_prefix":
 			case "lastrankprefix":
-				replacement = Rankup.getLastRank() != null && Rankup.getLastRank().getPrefix() != null ? Rankup.getLastRank().getPrefix() : "";
+				replacement = Rankup.getLastRank() != null
+						&& Rankup.getLastRank().getPrefix() != null ? Rankup
+						.getLastRank().getPrefix() : "";
 				break;
 			case "rankupprefix":
 			case "rankup_prefix":
@@ -176,11 +195,14 @@ public class PlaceholderReplacer {
 					break;
 				}
 				if (Rankup.getRankup(r.getRankup()) == null) {
-					replacement = Rankup.getLastRank() != null && Rankup.getLastRank().getPrefix() != null ? Rankup.getLastRank().getPrefix() : "";
+					replacement = Rankup.getLastRank() != null
+							&& Rankup.getLastRank().getPrefix() != null ? Rankup
+							.getLastRank().getPrefix() : "";
 					break;
 				}
-				
-				replacement = Rankup.getRankup(r.getRankup()).getPrefix() != null ? Rankup.getRankup(r.getRankup()).getPrefix() : "";
+
+				replacement = Rankup.getRankup(r.getRankup()).getPrefix() != null ? Rankup
+						.getRankup(r.getRankup()).getPrefix() : "";
 				break;
 			}
 			
