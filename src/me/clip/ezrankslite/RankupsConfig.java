@@ -93,6 +93,7 @@ public class RankupsConfig {
 				+ "\n%difference_formatted% - formatted amount still needede"
 				+ "\n%progress% - rounded progress % based on cost - balance"
 				+ "\n%progressexact% - exact progress % based on cost - balance"
+				+ "\n%progressbar% - custom progressbar based on cost - balance"
 				+ "\n%rankprefix% - players current rank prefix defined in this file"
 				+ "\n%rankupprefix% - players next rank prefix defined in this file"
 				+ "\n%lastrank% - last rank available"
