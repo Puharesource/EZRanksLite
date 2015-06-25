@@ -50,6 +50,8 @@ public class MainConfig {
 	
 	private static String ranksLastRank;
 	
+	private static String ranksIsLastRank;
+	
 	private static List<String> ranksHeader;
 	
 	private static List<String> ranksFooter;
@@ -101,6 +103,7 @@ public class MainConfig {
 		c.addDefault("ranks.format_current_rank", "&f%rank% to %rankto%: &a$&f%cost%");
 		c.addDefault("ranks.format_incomplete_ranks", "&7%rank% to %rankto%: &a$&f%cost%");
 		c.addDefault("ranks.format_last_rank", "&f%lastrank%: &cLast rank!");
+		c.addDefault("ranks.format_is_last_rank", "&f%lastrank%: &aYou are the last rank!");
 		c.addDefault("ranks.footer", Arrays.asList(new String[] { "&8&m----------" }));
 		
 		c.addDefault("money.thousands_format", "k");
@@ -138,6 +141,7 @@ public class MainConfig {
 		ranksCurrent = plugin.getConfig().getString("ranks.format_current_rank");
 		ranksNext = plugin.getConfig().getString("ranks.format_incomplete_ranks");
 		ranksLastRank = plugin.getConfig().getString("ranks.format_last_rank");
+		ranksIsLastRank = plugin.getConfig().getString("ranks.format_is_last_rank");
 		ranksHeader = plugin.getConfig().getStringList("ranks.header");
 		ranksFooter = plugin.getConfig().getStringList("ranks.footer");
 		
@@ -191,6 +195,10 @@ public class MainConfig {
 	
 	public static String getRanksLastFormat() {
 		return ranksLastRank != null ? ranksLastRank : "&f%lastrank%: &cLast rank!";
+	}
+	
+	public static String getRanksIsLastFormat() {
+		return ranksIsLastRank != null ? ranksIsLastRank : "&f%lastrank%: &aYou are the last rank!";
 	}
 	
 	public static List<String> getRanksHeader() {

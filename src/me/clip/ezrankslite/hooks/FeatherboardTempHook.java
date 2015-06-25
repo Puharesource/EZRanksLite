@@ -20,7 +20,203 @@ public class FeatherboardTempHook {
 	
 	public void addPlaceholders() {
 
-		plugin.getLogger().info("Adding progressbar hotfix placeholder: {ezrl2_progressbar}");
+		PlaceholderAPI.registerPlaceholder("ezrl2_rank",
+				new PlaceholderRequestEventHandler() {
+
+					@Override
+					public String onPlaceholderRequest(PlaceholderRequestEvent e) {
+
+						Player p = e.getPlayer();
+
+						Rankup r = Rankup.getRankup(p);
+
+						return r != null && r.getRank() != null ? r.getRank()
+								: Rankup.isLastRank(p) && Rankup.getLastRank() != null
+										&& Rankup.getLastRank().getRank() != null ? Rankup
+										.getLastRank().getRank() : EZRanksLite.get().getPerms()
+										.getPrimaryGroup(p) != null ? EZRanksLite.get().getPerms()
+										.getPrimaryGroup(p) : "unknown";
+
+					}
+
+				});
+
+		PlaceholderAPI.registerPlaceholder("ezrl2_rankup",
+				new PlaceholderRequestEventHandler() {
+
+					@Override
+					public String onPlaceholderRequest(PlaceholderRequestEvent e) {
+
+						Player p = e.getPlayer();
+
+						Rankup r = Rankup.getRankup(p);
+
+						return r != null && r.getRankup() != null ? r
+								.getRankup() : "none";
+
+					}
+
+				});
+		
+		PlaceholderAPI.registerPlaceholder("ezrl2_rankup_cost",
+				new PlaceholderRequestEventHandler() {
+
+					@Override
+					public String onPlaceholderRequest(PlaceholderRequestEvent e) {
+
+						Player p = e.getPlayer();
+
+						Rankup r = Rankup.getRankup(p);
+						
+						double cost = 0.0;
+
+						if (r != null) {
+
+							cost = r.getCost();
+
+							cost = CostHandler.getMultiplier(p, cost);
+
+							cost = CostHandler.getDiscount(p, cost);
+						}
+
+						long send = (long) cost;
+
+						return String.valueOf(send);
+	
+
+					}
+
+				});
+
+		PlaceholderAPI.registerPlaceholder("ezrl2_rankup_cost_formatted",
+				new PlaceholderRequestEventHandler() {
+
+					@Override
+					public String onPlaceholderRequest(PlaceholderRequestEvent e) {
+
+						Player p = e.getPlayer();
+
+						Rankup r = Rankup.getRankup(p);
+
+						double cost = 0.0;
+
+						if (r != null) {
+
+							cost = r.getCost();
+
+							cost = CostHandler.getMultiplier(p, cost);
+
+							cost = CostHandler.getDiscount(p, cost);
+						}
+
+						return EcoUtil.fixMoney(cost);
+					}
+
+				});
+		
+		PlaceholderAPI.registerPlaceholder("ezrl2_difference",
+				new PlaceholderRequestEventHandler() {
+
+					@Override
+					public String onPlaceholderRequest(PlaceholderRequestEvent e) {
+
+						Player p = e.getPlayer();
+						
+						Rankup r = Rankup.getRankup(p);
+
+						double cost = 0.0;
+						
+						if (r != null) {
+
+							cost = r.getCost();
+
+							cost = CostHandler.getMultiplier(p, cost);
+
+							cost = CostHandler.getDiscount(p, cost);
+						}
+
+						return String.valueOf(EcoUtil.getDifference(EZRanksLite.get().getEconomy().getBalance(p), cost));
+					}
+
+				});
+
+		PlaceholderAPI.registerPlaceholder("ezrl2_difference_formatted",
+				new PlaceholderRequestEventHandler() {
+
+					@Override
+					public String onPlaceholderRequest(PlaceholderRequestEvent e) {
+
+						Player p = e.getPlayer();
+						
+						Rankup r = Rankup.getRankup(p);
+
+						double cost = 0.0;
+						
+						if (r != null) {
+
+							cost = r.getCost();
+
+							cost = CostHandler.getMultiplier(p, cost);
+
+							cost = CostHandler.getDiscount(p, cost);
+						}
+
+						return EcoUtil.fixMoney(EcoUtil.getDifference(EZRanksLite.get().getEconomy().getBalance(p), cost));
+					}
+
+				});
+		
+		PlaceholderAPI.registerPlaceholder("ezrl2_progress",
+				new PlaceholderRequestEventHandler() {
+
+					@Override
+					public String onPlaceholderRequest(PlaceholderRequestEvent e) {
+
+						Player p = e.getPlayer();
+						
+						Rankup r = Rankup.getRankup(p);
+
+						double cost = 0.0;
+						
+						if (r != null) {
+
+							cost = r.getCost();
+
+							cost = CostHandler.getMultiplier(p, cost);
+
+							cost = CostHandler.getDiscount(p, cost);
+						}
+
+						return String.valueOf(EcoUtil.getProgress(EZRanksLite.get().getEconomy().getBalance(p), cost));
+					}
+
+				});
+		
+		PlaceholderAPI.registerPlaceholder("ezrl2_progressexact",
+				new PlaceholderRequestEventHandler() {
+
+					@Override
+					public String onPlaceholderRequest(PlaceholderRequestEvent e) {
+
+						Player p = e.getPlayer();
+						
+						Rankup r = Rankup.getRankup(p);
+
+						double cost = 0.0;
+						
+						if (r != null) {
+
+							cost = r.getCost();
+
+							cost = CostHandler.getMultiplier(p, cost);
+
+							cost = CostHandler.getDiscount(p, cost);
+						}
+
+						return EcoUtil.getProgressExact(EZRanksLite.get().getEconomy().getBalance(p), cost);
+					}
+
+				});
 		
 		PlaceholderAPI.registerPlaceholder("ezrl2_progressbar",
 				new PlaceholderRequestEventHandler() {
@@ -48,7 +244,18 @@ public class FeatherboardTempHook {
 
 				});
 		
-		plugin.getLogger().info("Adding balance formatted hotfix placeholder: {ezrl2_balance_formatted}");
+		PlaceholderAPI.registerPlaceholder("ezrl2_balance",
+				new PlaceholderRequestEventHandler() {
+
+					@Override
+					public String onPlaceholderRequest(PlaceholderRequestEvent e) {
+
+						Player p = e.getPlayer();
+
+						return String.valueOf(EZRanksLite.get().getEconomy().getBalance(p));
+					}
+
+				});
 
 		PlaceholderAPI.registerPlaceholder("ezrl2_balance_formatted",
 				new PlaceholderRequestEventHandler() {
@@ -63,34 +270,78 @@ public class FeatherboardTempHook {
 
 				});
 		
-		plugin.getLogger().info("Adding rankup cost formatted hotfix placeholder: {ezrl2_rankup_cost_formatted}");
-
-		PlaceholderAPI.registerPlaceholder("ezrl2_rankup_cost_formatted",
+		PlaceholderAPI.registerPlaceholder("ezrl2_rankprefix",
 				new PlaceholderRequestEventHandler() {
 
 					@Override
 					public String onPlaceholderRequest(PlaceholderRequestEvent e) {
 
 						Player p = e.getPlayer();
-
+						
 						Rankup r = Rankup.getRankup(p);
 
-						double cost = 0.0;
+						return r != null && r.getPrefix() != null ? r
+								.getPrefix() : Rankup.isLastRank(p)
+								&& Rankup.getLastRank() != null
+								&& Rankup.getLastRank().getPrefix() != null ? Rankup
+								.getLastRank().getPrefix() : "";
+					}
 
-						if (r != null) {
+				});
+		
+		PlaceholderAPI.registerPlaceholder("ezrl2_rankupprefix",
+				new PlaceholderRequestEventHandler() {
 
-							cost = r.getCost();
+					@Override
+					public String onPlaceholderRequest(PlaceholderRequestEvent e) {
 
-							cost = CostHandler.getMultiplier(p, cost);
+						Player p = e.getPlayer();
+						
+						Rankup r = Rankup.getRankup(p);
 
-							cost = CostHandler.getDiscount(p, cost);
+						if (r == null) {
+							return "";
+						}
+						
+						if (Rankup.getRankup(r.getRankup()) == null) {
+							return Rankup.getLastRank() != null
+									&& Rankup.getLastRank().getPrefix() != null ? Rankup
+									.getLastRank().getPrefix() : "";
 						}
 
-						return EcoUtil.fixMoney(cost);
+						return Rankup.getRankup(r.getRankup()).getPrefix() != null ? Rankup
+								.getRankup(r.getRankup()).getPrefix() : "";
+					}
+
+				});
+		
+		PlaceholderAPI.registerPlaceholder("ezrl2_lastrank",
+				new PlaceholderRequestEventHandler() {
+
+					@Override
+					public String onPlaceholderRequest(PlaceholderRequestEvent e) {
+
+							return Rankup.getLastRank() != null
+									&& Rankup.getLastRank().getRank() != null ? Rankup
+											.getLastRank().getRank() : "";
+					}
+
+				});
+		
+		PlaceholderAPI.registerPlaceholder("ezrl2_lastrankprefix",
+				new PlaceholderRequestEventHandler() {
+
+					@Override
+					public String onPlaceholderRequest(PlaceholderRequestEvent e) {
+
+							return Rankup.getLastRank() != null
+									&& Rankup.getLastRank().getPrefix() != null ? Rankup
+											.getLastRank().getPrefix() : "";
 					}
 
 				});
 
+	
 	}
 
 }

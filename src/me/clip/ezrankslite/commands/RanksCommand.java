@@ -121,7 +121,7 @@ public class RanksCommand implements CommandExecutor {
 		}
 		
 		if (current == Integer.MAX_VALUE && Rankup.isLastRank(p)) {
-			String c = plugin.getPlaceholderReplacer().setPlaceholders(p, null, MainConfig.getRanksCurrentFormat());
+			String c = plugin.getPlaceholderReplacer().setPlaceholders(p, null, MainConfig.getRanksIsLastFormat());
 			ChatUtil.msg(p, c);
 		} else {
 			String c = plugin.getPlaceholderReplacer().setPlaceholders(p, null, MainConfig.getRanksLastFormat());
