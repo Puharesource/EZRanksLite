@@ -22,63 +22,115 @@ package me.clip.ezrankslite.util;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import org.bukkit.ChatColor;
+
 import me.clip.ezrankslite.MainConfig;
 
 public class EcoUtil {
 
 	public static double getDifference(double balance, double cost) {
-		return cost-balance > 0 ? cost-balance : 0;
+		return cost - balance > 0 ? cost - balance : 0;
+	}
+
+	public static String format(double d) {
+
+		NumberFormat format = NumberFormat.getInstance(Locale.ENGLISH);
+
+		format.setMaximumFractionDigits(2);
+
+		format.setMinimumFractionDigits(0);
+
+		return format.format(d);
 	}
 	
-	 public static String format(double d) {
-		 
-         NumberFormat format = NumberFormat.getInstance(Locale.ENGLISH);
-         
-         format.setMaximumFractionDigits(2);
-         
-         format.setMinimumFractionDigits(0);
-         
-         return format.format(d);
-     }
-	 
-	public static String getProgress(double balance, double cost) {
+	public static String getProgressBar(int progress) {
+		
+		if (progress >= 100) {
+			return ChatColor.translateAlternateColorCodes('&', MainConfig.getBarIsFull());
+		}
+		
+		int where = 0;
+		
+		if (progress > 0) {
+			where = progress / 10;
+		}
+		
+		StringBuilder sb = new StringBuilder(MainConfig.getBarEndColor() + MainConfig.getBarLeft());
+		
+		if (where > 0) {
+			sb.append(MainConfig.getBarHasColor());
+		}
+		
+		for (int i = 0;i<10;i++) {
+			
+			if (i == where) {
+				sb.append(MainConfig.getBarNeedsColor());
+			}
+			
+			sb.append(MainConfig.getBarChar());
+		}
+		
+		sb.append(MainConfig.getBarEndColor() + MainConfig.getBarRight());
+		
+		return ChatColor.translateAlternateColorCodes('&', sb.toString());
+	}
+	
+	public static int getProgressInt(double balance, double cost) {
 
 		float bal = (float) balance;
 
-		float c =  (float) cost;
+		float c = (float) cost;
 
 		float percent = (100 * bal) / c;
 
 		int progress = (int) Math.floor(percent);
 
 		if (progress >= 100) {
-			return 100 + "%";
+			return 100;
 		} else if (progress < 0) {
-			return 0 + "%";
-			
+			return 0;
+
 		}
-		
-		return progress + "%";
-		
+
+		return progress;
 	}
-	
+
+	public static String getProgress(double balance, double cost) {
+
+		float bal = (float) balance;
+
+		float c = (float) cost;
+
+		float percent = (100 * bal) / c;
+
+		int progress = (int) Math.floor(percent);
+
+		if (progress >= 100) {
+			return "100";
+		} else if (progress < 0) {
+			return "0";
+
+		}
+
+		return String.valueOf(progress);
+	}
+
 	public static String getProgressExact(double balance, double cost) {
-		
+
 		double percent = 100.0D * balance / cost;
-		
+
 		if (percent >= 100.0D) {
-			return "100%";
+			return "100";
 		}
-		
+
 		if (percent < 0.0D) {
-			return "0%";
+			return "0";
 		}
-		
+
 		String format = format(percent);
 
-		return format + "%";
+		return format;
 	}
-
 
 	public static String fixMoney(double d) {
 
@@ -98,7 +150,8 @@ public class EcoUtil {
 			return format(d / 1000000000000L) + MainConfig.getTrillionsFormat();
 		}
 		if (d < 1000000000000000000L) {
-			return format(d / 1000000000000000L) + MainConfig.getQuadrillionsFormat();
+			return format(d / 1000000000000000L)
+					+ MainConfig.getQuadrillionsFormat();
 		}
 
 		long send = (long) d;

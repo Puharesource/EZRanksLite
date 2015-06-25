@@ -57,6 +57,8 @@ public class PlaceholderReplacer {
 			
 			String replacement = "";
 			
+			double cost = 0.0;
+			
 			switch (placeholder) {
 
 			case "player":
@@ -86,7 +88,7 @@ public class PlaceholderReplacer {
 				break;
 			case "cost":
 
-				double cost = 0.0;
+				
 
 				if (r != null) {
 
@@ -103,89 +105,87 @@ public class PlaceholderReplacer {
 				break;
 			case "cost_formatted":
 
-				double c = 0.0;
-
 				if (r != null) {
 
-					c = r.getCost();
+					cost = r.getCost();
 
-					c = CostHandler.getMultiplier(p, c);
+					cost = CostHandler.getMultiplier(p, cost);
 
-					c = CostHandler.getDiscount(p, c);
+					cost = CostHandler.getDiscount(p, cost);
 				}
 
-				replacement = EcoUtil.fixMoney(c);
+				replacement = EcoUtil.fixMoney(cost);
 				break;
 			case "difference":
 
-				double diff = 0.0;
-
 				if (r != null) {
 
-					diff = r.getCost();
+					cost = r.getCost();
 
-					diff = CostHandler.getMultiplier(p, diff);
+					cost = CostHandler.getMultiplier(p, cost);
 
-					diff = CostHandler.getDiscount(p, diff);
+					cost = CostHandler.getDiscount(p, cost);
 				}
 
-				replacement = String.valueOf(EcoUtil.getDifference(plugin
-						.getEconomy().getBalance(p), diff));
+				replacement = String.valueOf(EcoUtil.getDifference(plugin.getEconomy().getBalance(p), cost));
 				break;
 			case "difference_formatted":
 
-				double difff = 0.0;
-
 				if (r != null) {
 
-					difff = r.getCost();
+					cost = r.getCost();
 
-					difff = CostHandler.getMultiplier(p, difff);
+					cost = CostHandler.getMultiplier(p, cost);
 
-					difff = CostHandler.getDiscount(p, difff);
+					cost = CostHandler.getDiscount(p, cost);
 				}
 
-				replacement = EcoUtil.fixMoney(EcoUtil.getDifference(plugin
-						.getEconomy().getBalance(p), difff));
+				replacement = EcoUtil.fixMoney(EcoUtil.getDifference(plugin.getEconomy().getBalance(p), cost));
 				break;
 			case "progress":
 
-				double pro = 0.0;
+				if (r != null) {
+
+					cost = r.getCost();
+
+					cost = CostHandler.getMultiplier(p, cost);
+
+					cost = CostHandler.getDiscount(p, cost);
+				}
+
+				replacement = String.valueOf(EcoUtil.getProgress(plugin.getEconomy().getBalance(p), cost));
+				break;
+			case "progressbar":
 
 				if (r != null) {
 
-					pro = r.getCost();
+					cost = r.getCost();
 
-					pro = CostHandler.getMultiplier(p, pro);
+					cost = CostHandler.getMultiplier(p, cost);
 
-					pro = CostHandler.getDiscount(p, pro);
+					cost = CostHandler.getDiscount(p, cost);
 				}
 
-				replacement = EcoUtil.getProgress(plugin.getEconomy()
-						.getBalance(p), pro);
+				replacement = EcoUtil.getProgressBar(EcoUtil.getProgressInt(plugin.getEconomy().getBalance(p), cost));
 				break;
 			case "progressexact":
 
-				double prog = 0.0;
-
 				if (r != null) {
 
-					prog = r.getCost();
+					cost = r.getCost();
 
-					prog = CostHandler.getMultiplier(p, prog);
+					cost = CostHandler.getMultiplier(p, cost);
 
-					prog = CostHandler.getDiscount(p, prog);
+					cost = CostHandler.getDiscount(p, cost);
 				}
 
-				replacement = EcoUtil.getProgressExact(plugin.getEconomy()
-						.getBalance(p), prog);
+				replacement = EcoUtil.getProgressExact(plugin.getEconomy().getBalance(p), cost);
 				break;
 			case "balance":
 				replacement = String.valueOf(plugin.getEconomy().getBalance(p));
 				break;
 			case "balance_formatted":
-				replacement = EcoUtil.fixMoney(plugin.getEconomy()
-						.getBalance(p));
+				replacement = EcoUtil.fixMoney(plugin.getEconomy().getBalance(p));
 				break;
 			case "rankprefix":
 			case "rank_prefix":

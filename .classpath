@@ -11,6 +11,6 @@
 	<classpathentry kind="lib" path="C:/Users/Ryan/Desktop/PluginDependencies/spigot-1.8-R0.1-SNAPSHOT-latest.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Ryan/Desktop/PluginDependencies/spigot1649.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Ryan/Desktop/PluginDependencies/spigot-api-1.8-R0.1-SNAPSHOT-latest.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ryan/Desktop/ScoreboardStats.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ryan/Desktop/FeatherBoard.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

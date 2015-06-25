@@ -60,6 +60,21 @@ public class MainConfig {
 	
 	private static boolean checkPrimaryGroup;
 	
+	private static String barHasColor;
+	
+	private static String barNeedsColor;
+	
+	private static String barEndColor;
+	
+	private static String barLeft;
+	
+	private static String barRight;
+	
+	private static String barChar;
+	
+	private static String barFull;
+
+	
 	public void loadDefaultConfig() {
 		
 		FileConfiguration c = plugin.getConfig();
@@ -72,25 +87,35 @@ public class MainConfig {
 		
 		c.addDefault("debug", false);
 		c.addDefault("check_primary_group_for_available_rankup", false);
+		c.addDefault("chat_prefix_enabled", false);
+		
 		c.addDefault("confirm_to_rankup.enabled", true);
 		c.addDefault("confirm_to_rankup.time", 10);
+		
 		c.addDefault("rankup_cooldown.enabled", true);
 		c.addDefault("rankup_cooldown.time", 30);
+		
 		c.addDefault("ranks_command_enabled", true);
-		c.addDefault("ranks.header",
-				Arrays.asList(new String[] { "&8&m----------" }));
-		c.addDefault("ranks.format_previous_ranks", "&8%rank%: Completed");
-		c.addDefault("ranks.format_current_rank", "&7%rank%: &fCurrent rank");
-		c.addDefault("ranks.format_incomplete_ranks", "&f%rank%: &a$&f%cost%");
+		c.addDefault("ranks.header", Arrays.asList(new String[] { "&8&m----------" }));
+		c.addDefault("ranks.format_previous_ranks", "&8%rank% to %rankto%: Completed");
+		c.addDefault("ranks.format_current_rank", "&f%rank% to %rankto%: &a$&f%cost%");
+		c.addDefault("ranks.format_incomplete_ranks", "&7%rank% to %rankto%: &a$&f%cost%");
 		c.addDefault("ranks.format_last_rank", "&f%lastrank%: &cLast rank!");
-		c.addDefault("ranks.footer",
-				Arrays.asList(new String[] { "&8&m----------" }));
+		c.addDefault("ranks.footer", Arrays.asList(new String[] { "&8&m----------" }));
 		
 		c.addDefault("money.thousands_format", "k");
 		c.addDefault("money.millions_format", "M");
 		c.addDefault("money.billions_format", "B");
 		c.addDefault("money.trillions_format", "T");
 		c.addDefault("money.quadrillions_format", "Q");
+		
+		c.addDefault("progress_bar.has_color", "&a");
+		c.addDefault("progress_bar.needs_color", "&8");
+		c.addDefault("progress_bar.end_color", "&e");
+		c.addDefault("progress_bar.left_character", "[");
+		c.addDefault("progress_bar.bar_character", ":");
+		c.addDefault("progress_bar.right_character", "]");
+		c.addDefault("progress_bar.is_full", "&a/rankup");
 		
 		c.options().copyDefaults(true);
 		
@@ -118,6 +143,14 @@ public class MainConfig {
 		
 		rankupCooldownEnabled = plugin.getConfig().getBoolean("rankup_cooldown.enabled");
 		rankupCooldownTime = plugin.getConfig().getInt("rankup_cooldown.time") * 1000;
+		
+		barHasColor = plugin.getConfig().getString("progress_bar.has_color");
+		barNeedsColor = plugin.getConfig().getString("progress_bar.needs_color");
+		barEndColor = plugin.getConfig().getString("progress_bar.end_color");
+		barLeft = plugin.getConfig().getString("progress_bar.left_character");
+		barRight = plugin.getConfig().getString("progress_bar.right_character");
+		barChar = plugin.getConfig().getString("progress_bar.bar_character");
+		barFull = plugin.getConfig().getString("progress_bar.is_full");
 	}
 	
 	public static boolean checkPrimaryGroupForRankups() {
@@ -145,15 +178,15 @@ public class MainConfig {
 	}
 	
 	public static String getRanksPreviousFormat() {
-		return ranksPrevious != null ? ranksPrevious : "&8%rank%: Completed";
+		return ranksPrevious != null ? ranksPrevious : "&8%rank% to %rankto%: Completed";
 	}
 	
 	public static String getRanksCurrentFormat() {
-		return ranksCurrent != null ? ranksCurrent : "&7%rank%: &fCurrent rank";
+		return ranksCurrent != null ? ranksCurrent : "&f%rank% to %rankto%: &a$&f%cost%";
 	}
 	
 	public static String getRanksNextFormat() {
-		return ranksNext != null ? ranksNext : "&f%rank%: &a$&f%cost%";
+		return ranksNext != null ? ranksNext : "&7%rank% to %rankto%: &a$&f%cost%";
 	}
 	
 	public static String getRanksLastFormat() {
@@ -174,5 +207,33 @@ public class MainConfig {
 	
 	public static int rankupCooldownTime() {
 		return rankupCooldownTime;
+	}
+	
+	public static String getBarHasColor() {
+		return barHasColor != null ? barHasColor : "&a";
+	}
+	
+	public static String getBarNeedsColor() {
+		return barNeedsColor != null ? barNeedsColor : "&8";
+	}
+	
+	public static String getBarEndColor() {
+		return barEndColor != null ? barEndColor : "&e";
+	}
+	
+	public static String getBarLeft() {
+		return barLeft != null ? barLeft : "[";
+	}
+	
+	public static String getBarRight() {
+		return barRight != null ? barRight : "]";
+	}
+	
+	public static String getBarChar() {
+		return barChar != null ? barChar : ":";
+	}
+	
+	public static String getBarIsFull() {
+		return barFull != null ? barFull : "&aRankup";
 	}
 }

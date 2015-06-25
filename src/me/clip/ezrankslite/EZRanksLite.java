@@ -30,6 +30,8 @@ import me.clip.ezrankslite.commands.RanksCommand;
 import me.clip.ezrankslite.commands.RankupCommand;
 import me.clip.ezrankslite.configuration.ConfigWrapper;
 import me.clip.ezrankslite.effects.EffectsHandler;
+import me.clip.ezrankslite.hooks.FeatherboardTempHook;
+import me.clip.ezrankslite.listeners.ChatListener;
 import me.clip.ezrankslite.metricslite.MetricsLite;
 import me.clip.ezrankslite.multipliers.CostHandler;
 import me.clip.ezrankslite.multipliers.MultiplierConfig;
@@ -158,6 +160,11 @@ public class EZRanksLite extends JavaPlugin {
 				new RanksCommand(this);
 			}
 			
+			if (getConfig().getBoolean("chat_prefix_enabled")) {
+				new ChatListener(this);
+				getLogger().info("Chat listener registered, Add {ezrankslite_rankprefix} to your chat formatting plugin for chat prefix integration");
+			}
+			
 			if (getConfig().getBoolean("check_updates")) {
 				
 				updateChecker = new UpdateChecker(this);
@@ -176,6 +183,21 @@ public class EZRanksLite extends JavaPlugin {
 			if (!startMetricsLite()) {
 				debug(false, "Failed to start MetricsLite");
 			}
+			
+			Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+
+				@Override
+				public void run() {
+					if (Bukkit.getPluginManager().isPluginEnabled("FeatherBoard")) {
+						
+						getLogger().info("Adding hotfix placeholders to FeatherBoard.....");
+						
+						new FeatherboardTempHook(EZRanksLite.get()).addPlaceholders();
+					}
+					
+				}
+				
+			}, 100L);
 			
 		} else {
 			
