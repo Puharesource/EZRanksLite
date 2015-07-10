@@ -197,7 +197,7 @@ public class EZRanksLite extends JavaPlugin {
 					
 				}
 				
-			}, 100L);
+			}, 20L);
 			
 		} else {
 			

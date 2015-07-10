@@ -4,6 +4,7 @@ import me.clip.ezrankslite.EZRanksLite;
 import me.clip.ezrankslite.rankdata.Rankup;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -29,7 +30,7 @@ public class ChatListener implements Listener {
 			
 			String pre = r != null ? r.getPrefix() : Rankup.isLastRank(e.getPlayer()) ? Rankup.getLastRank().getPrefix() : "";
 			
-			e.setFormat(format.replace("{ezrankslite_rankprefix}", pre));
+			e.setFormat(format.replace("{ezrankslite_rankprefix}", ChatColor.translateAlternateColorCodes('&', pre)));
 		}
 	}
 }

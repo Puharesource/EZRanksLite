@@ -187,7 +187,7 @@ public class FeatherboardTempHook {
 							cost = CostHandler.getDiscount(p, cost);
 						}
 
-						return String.valueOf(EcoUtil.getProgress(EZRanksLite.get().getEconomy().getBalance(p), cost));
+						return EcoUtil.getProgress(EZRanksLite.get().getEconomy().getBalance(p), cost);
 					}
 
 				});
