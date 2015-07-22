@@ -32,6 +32,7 @@ import me.clip.ezrankslite.configuration.ConfigWrapper;
 import me.clip.ezrankslite.effects.EffectsHandler;
 import me.clip.ezrankslite.hooks.FeatherboardTempHook;
 import me.clip.ezrankslite.listeners.ChatListener;
+import me.clip.ezrankslite.listeners.RankupListener;
 import me.clip.ezrankslite.metricslite.MetricsLite;
 import me.clip.ezrankslite.multipliers.CostHandler;
 import me.clip.ezrankslite.multipliers.MultiplierConfig;
@@ -147,6 +148,11 @@ public class EZRanksLite extends JavaPlugin {
 			getLogger().info(multiplierConfig.loadDiscounts() + " rankup cost discounts loaded!");
 			
 			getLogger().info(multiplierConfig.loadMultipliers() + " rankup cost multipliers loaded!");
+			
+			if (getConfig().getBoolean("log_rankups_to_file")) {
+				
+				new RankupListener(this);
+			}
 			
 			rankupActionHandler = new RankupActionHandler(this);
 			

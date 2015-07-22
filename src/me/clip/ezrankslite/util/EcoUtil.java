@@ -131,8 +131,13 @@ public class EcoUtil {
 
 		return format;
 	}
+	
 
 	public static String fixMoney(double d) {
+		
+		if (MainConfig.useCustomFormat()) {
+			return MainConfig.getCustomFormat().format(d);
+		}
 
 		if (d < 1000L) {
 			return format(d);
@@ -150,8 +155,7 @@ public class EcoUtil {
 			return format(d / 1000000000000L) + MainConfig.getTrillionsFormat();
 		}
 		if (d < 1000000000000000000L) {
-			return format(d / 1000000000000000L)
-					+ MainConfig.getQuadrillionsFormat();
+			return format(d / 1000000000000000L) + MainConfig.getQuadrillionsFormat();
 		}
 
 		long send = (long) d;

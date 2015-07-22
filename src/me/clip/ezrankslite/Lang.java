@@ -65,8 +65,7 @@ public enum Lang {
 	}
 	
 	public String getConfigValue(final String[] args) {
-		String value = ChatColor.translateAlternateColorCodes('&',
-				LANG.getString(this.path, this.def));
+		String value = ChatColor.translateAlternateColorCodes('&', LANG.getString(this.path, this.def));
 
 		if (args == null)
 			return value;

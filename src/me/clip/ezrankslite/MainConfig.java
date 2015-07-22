@@ -19,6 +19,8 @@
  */
 package me.clip.ezrankslite;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -75,6 +77,10 @@ public class MainConfig {
 	private static String barChar;
 	
 	private static String barFull;
+	
+	private static boolean useCustomFormat;
+	
+	private static NumberFormat customFormat;
 
 	
 	public void loadDefaultConfig() {
@@ -90,7 +96,7 @@ public class MainConfig {
 		c.addDefault("debug", false);
 		c.addDefault("check_primary_group_for_available_rankup", false);
 		c.addDefault("chat_prefix_enabled", false);
-		
+		c.addDefault("log_rankups_to_file", false);
 		c.addDefault("confirm_to_rankup.enabled", true);
 		c.addDefault("confirm_to_rankup.time", 10);
 		
@@ -106,11 +112,16 @@ public class MainConfig {
 		c.addDefault("ranks.format_is_last_rank", "&f%lastrank%: &aYou are the last rank!");
 		c.addDefault("ranks.footer", Arrays.asList(new String[] { "&8&m----------" }));
 		
+		c.addDefault("money.use_custom_format", false);
+		c.addDefault("money.custom_format", "#,###.00");
+		
+		c.addDefault("money.thousands_format", "k");
 		c.addDefault("money.thousands_format", "k");
 		c.addDefault("money.millions_format", "M");
 		c.addDefault("money.billions_format", "B");
 		c.addDefault("money.trillions_format", "T");
 		c.addDefault("money.quadrillions_format", "Q");
+		
 		
 		c.addDefault("progress_bar.has_color", "&a");
 		c.addDefault("progress_bar.needs_color", "&8");
@@ -130,6 +141,18 @@ public class MainConfig {
 	public void loadOptions() {
 		
 		checkPrimaryGroup = plugin.getConfig().getBoolean("check_primary_group_for_available_rankup");
+		
+		useCustomFormat = plugin.getConfig().getBoolean("money.use_custom_format");
+		
+		if (useCustomFormat) {
+			
+			try {
+				customFormat = new DecimalFormat(plugin.getConfig().getString("money.custom_format"));
+			} catch (NullPointerException | IllegalArgumentException ex) {
+				customFormat = new DecimalFormat("#,###.00");
+				plugin.getLogger().warning("custom money format was invalid! Defaulting to format: #,###.00");
+			}
+		}
 		
 		thousandsFormat = plugin.getConfig().getString("money.thousands_format");
 		millionsFormat = plugin.getConfig().getString("money.millions_format");
@@ -155,6 +178,14 @@ public class MainConfig {
 		barRight = plugin.getConfig().getString("progress_bar.right_character");
 		barChar = plugin.getConfig().getString("progress_bar.bar_character");
 		barFull = plugin.getConfig().getString("progress_bar.is_full");
+	}
+	
+	public static boolean useCustomFormat() {
+		return useCustomFormat && customFormat != null;
+	}
+	
+	public static NumberFormat getCustomFormat() {
+		return customFormat;
 	}
 	
 	public static boolean checkPrimaryGroupForRankups() {
@@ -194,11 +225,11 @@ public class MainConfig {
 	}
 	
 	public static String getRanksLastFormat() {
-		return ranksLastRank != null ? ranksLastRank : "&f%lastrank%: &cLast rank!";
+		return ranksLastRank;
 	}
 	
 	public static String getRanksIsLastFormat() {
-		return ranksIsLastRank != null ? ranksIsLastRank : "&f%lastrank%: &aYou are the last rank!";
+		return ranksIsLastRank;
 	}
 	
 	public static List<String> getRanksHeader() {

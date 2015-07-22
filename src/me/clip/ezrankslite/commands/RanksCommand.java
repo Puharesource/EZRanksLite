@@ -55,7 +55,7 @@ public class RanksCommand implements CommandExecutor {
 		Player p = (Player) sender;
 		
 		if (!p.hasPermission("ezranks.listranks")) {
-			//no perms
+			
 			ChatUtil.msg(p, Lang.NO_PERMISSION.getConfigValue(new String[] {
 					"ezranks.listranks"
 			}));
@@ -121,11 +121,22 @@ public class RanksCommand implements CommandExecutor {
 		}
 		
 		if (current == Integer.MAX_VALUE && Rankup.isLastRank(p)) {
-			String c = plugin.getPlaceholderReplacer().setPlaceholders(p, null, MainConfig.getRanksIsLastFormat());
-			ChatUtil.msg(p, c);
+			
+			String isLast = MainConfig.getRanksIsLastFormat();
+			
+			if (isLast != null && !isLast.isEmpty()) {
+				String c = plugin.getPlaceholderReplacer().setPlaceholders(p, null, isLast);
+				ChatUtil.msg(p, c);
+			}
+			
 		} else {
-			String c = plugin.getPlaceholderReplacer().setPlaceholders(p, null, MainConfig.getRanksLastFormat());
-			ChatUtil.msg(p, c);
+			
+			String getLast = MainConfig.getRanksLastFormat();
+			
+			if (getLast != null && !getLast.isEmpty()) {
+				String c = plugin.getPlaceholderReplacer().setPlaceholders(p, null, getLast);
+				ChatUtil.msg(p, c);
+			}
 		}
 		
 		if (MainConfig.getRanksFooter() != null && !MainConfig.getRanksFooter().isEmpty()) {
@@ -137,5 +148,4 @@ public class RanksCommand implements CommandExecutor {
 		
 		return true;
 	}
-	
 }

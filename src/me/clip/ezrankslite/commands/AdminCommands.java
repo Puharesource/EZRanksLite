@@ -60,7 +60,8 @@ public class AdminCommands implements CommandExecutor {
 			Player p = (Player) s;
 			
 			if (!p.hasPermission("ezranks.admin")) {
-				ChatUtil.msg(s, Lang.NO_PERMISSION.getConfigValue(new String[] {
+				
+				p.sendMessage(Lang.NO_PERMISSION.getConfigValue(new String[] {
 						"ezranks.admin"
 				}));
 				return true;
