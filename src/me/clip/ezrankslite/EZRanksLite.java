@@ -19,12 +19,6 @@
  */
 package me.clip.ezrankslite;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import me.clip.ezrankslite.commands.AdminCommands;
 import me.clip.ezrankslite.commands.RanksCommand;
 import me.clip.ezrankslite.commands.RankupCommand;
@@ -36,11 +30,7 @@ import me.clip.ezrankslite.listeners.RankupListener;
 import me.clip.ezrankslite.metricslite.MetricsLite;
 import me.clip.ezrankslite.multipliers.CostHandler;
 import me.clip.ezrankslite.multipliers.MultiplierConfig;
-import me.clip.ezrankslite.nms.NMSHandler;
-import me.clip.ezrankslite.nms.NMS_1_7_R4;
-import me.clip.ezrankslite.nms.NMS_1_8_R1;
-import me.clip.ezrankslite.nms.NMS_1_8_R2;
-import me.clip.ezrankslite.nms.NMS_1_8_R3;
+import me.clip.ezrankslite.nms.*;
 import me.clip.ezrankslite.placeholders.PlaceholderReplacer;
 import me.clip.ezrankslite.rankdata.Rankup;
 import me.clip.ezrankslite.rankupactions.RankupAction;
@@ -50,11 +40,16 @@ import me.clip.ezrankslite.updater.UpdateChecker;
 import me.clip.ezrankslite.vault.VaultChat;
 import me.clip.ezrankslite.vault.VaultEco;
 import me.clip.ezrankslite.vault.VaultPerms;
-
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * EZRanksLite main class
@@ -64,7 +59,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class EZRanksLite extends JavaPlugin {
 	
 	private static EZRanksLite instance;
-	
+
+	private static EZAPI oldApi;
+
 	private MainConfig mainConfig;
 	
 	private RankupsConfig rankupsConfig;
@@ -93,7 +90,8 @@ public class EZRanksLite extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		
+		oldApi = new EZAPI();
+
 		eco = new VaultEco();
 		
 		perms = new VaultPerms();
@@ -252,7 +250,15 @@ public class EZRanksLite extends JavaPlugin {
 		
 		debug(false, "EZRanksLite has been reloaded");
 	}
-	
+
+	/**
+	 * @return EZAPI is a deprecated class, that shouldn't be used.
+	 */
+	@Deprecated
+	public static EZAPI getApi() {
+		return oldApi;
+	}
+
 	/**
 	 * Send a debug message to console if debug mode is enabled
 	 * or if the message is severe
